@@ -17,7 +17,6 @@ def get_random_codeword():
     return ''.join(random.choices(chars, k=20))
 
 def call_llm_proxy(system_prompt, user_prompt, code_word):
-    """Sends the prompt combination to the LLM Proxy and returns the response content."""
     token = os.environ.get("LLM_FOUNDRY_TOKEN")
     if not token:
         print("CRITICAL ERROR: LLM_FOUNDRY_TOKEN environment variable is missing.")
@@ -50,7 +49,6 @@ def call_llm_proxy(system_prompt, user_prompt, code_word):
         return ""
 
 def evaluate_submissions(input_file, num_opponents, limit_students=None):
-    """Main grading loop to evaluate defender prompts against attacker prompts."""
     if not os.path.exists(input_file):
         print(f"Error: Input file '{input_file}' not found.")
         return
@@ -92,7 +90,6 @@ def evaluate_submissions(input_file, num_opponents, limit_students=None):
                 print(f"    ! Skipped due to API Error")
                 continue
 
-            # Fuzzy matching logic (3 lines max per Anand's constraint)
             # Transforms output: removes non-alphanumeric characters (spaces, dots, etc.) and lowercases.
             transformed_out = "".join(c for c in llm_output.lower() if c.isalnum())
             
